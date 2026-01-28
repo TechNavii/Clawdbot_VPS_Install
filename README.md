@@ -65,22 +65,7 @@ ssh-copy-id clawd@YOUR_SERVER_IP
   1) ローカルで `~/.ssh/id_ed25519.pub` などの中身を確認し、
   2) VPS 側で `/home/clawd/.ssh/authorized_keys` に追記します。
 
-## 4. SSH をハードニングする（任意・強く推奨）
-
-この作業をするとログイン不能になる可能性があります。**必ず `clawd` で鍵ログインできることを確認してから**進めてください。
-
-`/etc/ssh/sshd_config` を編集し、少なくとも以下を検討します。
-
-- `PermitRootLogin no`
-- `PasswordAuthentication no`
-
-反映:
-
-```bash
-systemctl reload ssh || systemctl reload sshd
-```
-
-## 5. ファイアウォールを有効化する（任意・推奨）
+## 4. ファイアウォールを有効化する（任意・推奨）
 
 Gateway を loopback バインドで運用する場合、**18789 を開ける必要はありません**。
 
@@ -90,7 +75,7 @@ ufw enable
 ufw status
 ```
 
-## 6. Clawdbot をインストールする（より安全な実行方法）
+## 5. Clawdbot をインストールする（より安全な実行方法）
 
 `clawd` に切り替えてから作業します。
 
@@ -113,13 +98,13 @@ command -v clawdbot
 clawdbot --help
 ```
 
-## 7. 初期セットアップ（オンボーディング）
+## 6. 初期セットアップ（オンボーディング）
 
 インストーラーの案内に従ってオンボーディング/初期設定を完了してください。
 
 補足: 公式ドキュメント上、Gateway は既定で `gateway.mode=local` が設定されていないと起動を拒否する場合があります（初期設定で書き込まれる想定です）。
 
-## 8. Gateway を loopback で起動する（外部公開しない）
+## 7. Gateway を loopback で起動する（外部公開しない）
 
 ```bash
 clawdbot gateway --bind loopback --port 18789 --verbose
@@ -127,7 +112,7 @@ clawdbot gateway --bind loopback --port 18789 --verbose
 
 `--bind` は `loopback|lan|tailnet|auto|custom` 等が利用できますが、**セキュリティ目的なら loopback を推奨**します。
 
-## 9. ローカル PC から接続する（SSH トンネル）
+## 8. ローカル PC から接続する（SSH トンネル）
 
 ローカル PC で **新しいターミナル**を開き、次を実行します。
 
@@ -137,7 +122,7 @@ ssh -N -L 18789:127.0.0.1:18789 -o ExitOnForwardFailure=yes clawd@YOUR_SERVER_IP
 
 このターミナルを開いたままにすると、ローカルから `127.0.0.1:18789` 経由で Gateway にアクセスできます。
 
-## 10. 自動起動（systemd）にする（任意・推奨）
+## 9. 自動起動（systemd）にする（任意・推奨）
 
 ### 10-1. `clawdbot` の絶対パスを確認する
 
@@ -149,7 +134,7 @@ command -v clawdbot
 
 例: `/home/clawd/.npm-global/bin/clawdbot`
 
-### 10-2. サービスを作成する
+### 10. サービスを作成する
 
 以下の例では、`ExecStart=` のパスをあなたの環境に合わせて置き換えてください。
 
