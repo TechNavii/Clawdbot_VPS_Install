@@ -101,9 +101,9 @@ su - clawd
 インストーラーを **ダウンロード → 内容確認 → 実行** の順で行います（`curl | bash` を避けます）。
 
 ```bash
-curl -fsSL --proto '=https' --tlsv1.2 https://clawd.bot/install.sh -o /tmp/clawdbot_install.sh
-sed -n '1,200p' /tmp/clawdbot_install.sh
-bash /tmp/clawdbot_install.sh
+curl -fsSL --proto '=https' --tlsv1.2 https://molt.bot/install.sh -o /tmp/moltbot_install.sh
+sed -n '1,200p' /tmp/molt_install.sh
+bash /tmp/molt_install.sh
 ```
 
 インストール後に、`clawdbot` が見えることを確認します。
