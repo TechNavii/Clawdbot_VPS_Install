@@ -98,6 +98,13 @@ command -v clawdbot
 clawdbot --help
 ```
 
+もしコマンドが見えなかったら以下の手順を実施します。
+
+```bash
+echo 'export PATH="/home/clawd/.npm-global/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
 ## 6. 初期セットアップ（オンボーディング）
 
 インストーラーの案内に従ってオンボーディング/初期設定を完了してください。
